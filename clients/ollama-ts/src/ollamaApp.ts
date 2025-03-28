@@ -231,50 +231,11 @@ class ToolManager {
    * Inicializa el gestor de herramientas con las herramientas integradas
    */
   constructor() {
-    this.builtInTools = [
-      {
-        type: 'function',
-        function: {
-          name: 'get_current_weather',
-          description: 'Get the current weather for a city',
-          parameters: {
-            type: 'object',
-            properties: {
-              city: {
-                type: 'string',
-                description: 'The name of the city',
-              },
-            },
-            required: ['city'],
-          },
-        },
-      },
-      {
-        type: 'function',
-        function: {
-          name: 'sum_two_numbers',
-          description: 'Sum two numbers together',
-          parameters: {
-            type: 'object',
-            properties: {
-              number_a: {
-                type: 'number',
-                description: 'First number to add',
-              },
-              number_b: {
-                type: 'number',
-                description: 'Second number to add',
-              },
-            },
-            required: ['number_a', 'number_b'],
-          },
-        },
-      },
-    ];
+    this.builtInTools = [];
   }
 
   /**
-   * Obtiene todas las herramientas disponibles (integradas + MCP)
+   * Obtiene todas las herramientas disponibles 
    * 
    * @param mcpTools Herramientas MCP disponibles
    * @returns Lista completa de herramientas
@@ -302,7 +263,7 @@ class ToolManager {
 }
 
 /**
- * Agente que integra Ollama con herramientas MCP y propias
+ * Agente que integra Ollama con herramientas MCP
  */
 class OllamaAgent {
   private ollamaClient: OllamaAPIClient;
@@ -436,24 +397,6 @@ async function executeFunction(
         return JSON.stringify(result);
       } catch (error) {
         return `Error ejecutando la herramienta MCP ${actualToolName}: ${error}`;
-      }
-    }
-
-    // Funciones predefinidas
-    if (functionName === "get_current_weather") {
-      const city = functionArgs.city || "";
-      if (!city) {
-        return "Error: Ciudad no especificada";
-      }
-      return `El clima en ${city} es soleado con 25°C`;
-    } else if (functionName === "sum_two_numbers") {
-      try {
-        const numberA = parseFloat(functionArgs.number_a?.toString() || "0");
-        const numberB = parseFloat(functionArgs.number_b?.toString() || "0");
-        const sumResult = numberA + numberB;
-        return `La suma de ${numberA} y ${numberB} es ${sumResult}`;
-      } catch (error) {
-        return "Error: Los argumentos deben ser números";
       }
     }
 
