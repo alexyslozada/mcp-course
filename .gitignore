@@ -65,3 +65,4 @@ debug/
 
 # cache
 __pycache__/
+*.pyc
