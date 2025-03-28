@@ -172,46 +172,7 @@ class ToolManager:
     
     def __init__(self):
         """Inicializa el gestor de herramientas con las herramientas integradas"""
-        self.built_in_tools = [
-            {
-                'type': 'function',
-                'function': {
-                    'name': 'get_current_weather',
-                    'description': 'Get the current weather for a city',
-                    'parameters': {
-                        'type': 'object',
-                        'properties': {
-                            'city': {
-                                'type': 'string',
-                                'description': 'The name of the city',
-                            },
-                        },
-                        'required': ['city'],
-                    },
-                },
-            },
-            {
-                'type': 'function',
-                'function': {
-                    'name': 'sum_two_numbers',
-                    'description': 'Sum two numbers together',
-                    'parameters': {
-                        'type': 'object',
-                        'properties': {
-                            'number_a': {
-                                'type': 'number',
-                                'description': 'First number to add',
-                            },
-                            'number_b': {
-                                'type': 'number',
-                                'description': 'Second number to add',
-                            },
-                        },
-                        'required': ['number_a', 'number_b'],
-                    },
-                },
-            },
-        ]
+        self.built_in_tools = []
     
     def get_all_tools(self, mcp_tools=None) -> List[Dict[str, Any]]:
         """
@@ -367,22 +328,6 @@ async def execute_function(function_name: str, function_args: dict, agent: Ollam
                 return str(result)
             except Exception as e:
                 return f"Error ejecutando la herramienta MCP {actual_tool_name}: {e}"
-        
-        # Funciones predefinidas
-        if function_name == "get_current_weather":
-            city = function_args.get("city", "")
-            if not city:
-                return "Error: Ciudad no especificada"
-            return f"El clima en {city} es soleado con 25°C"
-            
-        elif function_name == "sum_two_numbers":
-            try:
-                number_a = float(function_args.get("number_a", 0))
-                number_b = float(function_args.get("number_b", 0))
-                sum_result = number_a + number_b
-                return f"La suma de {number_a} y {number_b} es {sum_result}"
-            except ValueError:
-                return "Error: Los argumentos deben ser números"
         
         return f"Función {function_name} no implementada"
     except Exception as e:
