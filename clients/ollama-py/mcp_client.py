@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class MCPClient:
     """
-    Cliente para interactuar con servidores MCP (Machine Control Protocol).
+    Cliente para interactuar con servidores MCP (Model Control Protocol).
     
     Este cliente permite establecer una conexión con un servidor MCP,
     listar las herramientas disponibles y ejecutarlas.
