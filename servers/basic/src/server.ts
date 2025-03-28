@@ -101,7 +101,8 @@ server.tool(
 // Add lcm (least common multiple) tool
 server.tool(
   "lcm",
-  { numbers: z.array(z.number()).min(2) },
+  "Calculate the least common multiple of a list of numbers",
+  { numbers: z.array(z.number()).min(2).describe("A list of numbers to calculate the least common multiple of. The list must contain at least two numbers.") },
   async ({ numbers }) => {
     try {
       // Calculate LCM
